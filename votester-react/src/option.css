@@ -1,0 +1,20 @@
+.circle {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  background-color: rgb(44,108,128)
+  }
+  
+  .circle::before {
+    content: "+";
+    height:200px;
+    width:200px;
+    font-size:200px;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    font-family:courier;
+    color:white;
+  }
