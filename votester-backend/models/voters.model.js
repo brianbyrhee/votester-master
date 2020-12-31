@@ -2,12 +2,9 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 const votesSchema = new Schema({
-  option: {
-    type: String,
-    // required: true,
-    // unique: true,
-    // trim: true,
-    // minlength: 3
+  id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Option"
   },
   votes: [{
     name: {
@@ -15,9 +12,9 @@ const votesSchema = new Schema({
       required: false
     }, 
     date: {
-    type: Date, 
-    required: false,
-    default: Date.now
+      type: Date, 
+      required: false,
+      default: Date.now
     }
   }]
 }, {
