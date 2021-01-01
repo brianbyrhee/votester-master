@@ -19,10 +19,6 @@ connection.once('open', () => {
   console.log("MongoDB database connection established successfully...")
 });
 
-// app.get('/', (req, res) => {
-//   res.send('Hello World!');
-// })
-
 const usersRouter = require('./routes/users.js');
 const votersRouter = require('./routes/voters.js');
 const optionsRouter = require('./routes/options.js')
