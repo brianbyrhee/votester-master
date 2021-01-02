@@ -3,6 +3,9 @@ import './option.css'
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState } from 'react';
 import { Component } from 'react';
+import Navbar from './components/Navbar';
+import { BrowserRouter as Router } from "react-router-dom";
+
 
 function Option(props) {
   return <h2> Candidate {props.id}: {props.name}</h2>
@@ -21,31 +24,33 @@ class App extends Component {
     }
 
     return (
-      
-      <div className="App">
-        <h1> Votester: Simple Voting App </h1>
-        <button>Add option</button>
-        <Option name = "Trump" id = "1"/>
-        <Option name = "Biden" id = "2"/>
-        <ParentComponent addChild={this.onAddChild}>
-          {children}
-        </ParentComponent>
-        <div class = "form">
-          <input type = "text" name = "name" autoComplete = "off" required /> 
-          <label for = "name" class = "label-name">
-            <span class = "content-name"> Name </span>
-          </label>
-        </div>
+      <Router>
+        <Navbar />
+      </Router>
+      // <div className="App">
+      //   <h1> Votester: Simple Voting App </h1>
+      //   <button>Add option</button>
+      //   <Option name = "Trump" id = "1"/>
+      //   <Option name = "Biden" id = "2"/>
+      //   <ParentComponent addChild={this.onAddChild}>
+      //     {children}
+      //   </ParentComponent>
+      //   <div class = "form">
+      //     <input type = "text" name = "name" autoComplete = "off" required /> 
+      //     <label for = "name" class = "label-name">
+      //       <span class = "content-name"> Name </span>
+      //     </label>
+      //   </div>
 
-        {/* <script src="https://jsuites.net/v3/jsuites.js"></script>
-        <link rel="stylesheet" href="https://jsuites.net/v3/jsuites.css" type="text/css" />
+      //   {/* <script src="https://jsuites.net/v3/jsuites.js"></script>
+      //   <link rel="stylesheet" href="https://jsuites.net/v3/jsuites.css" type="text/css" />
         
-        <input id='calendar' />
+      //   <input id='calendar' />
         
-        <script>
-        jSuites.calendar(document.getElementById('calendar'), {time: true, format:'DD/MM/YYYY HH24:MI'});
-        </script> */}
-      </div>
+      //   <script>
+      //   jSuites.calendar(document.getElementById('calendar'), {time: true, format:'DD/MM/YYYY HH24:MI'});
+      //   </script> */}
+      // </div>
       
     );
   }

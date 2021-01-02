@@ -21,11 +21,13 @@ connection.once('open', () => {
 
 const usersRouter = require('./routes/users.js');
 const votersRouter = require('./routes/voters.js');
-const optionsRouter = require('./routes/options.js')
+const optionsRouter = require('./routes/options.js');
+const dataRouter = require('./routes/database.js');
 
 app.use('/users', usersRouter);
 app.use('/options', optionsRouter);
 app.use('/voters', votersRouter);
+app.use('/database', dataRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
