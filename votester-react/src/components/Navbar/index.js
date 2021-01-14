@@ -5,7 +5,7 @@ const Navbar = () => {
   return (
     <>
       <Nav>
-        <NavLink to="/">
+        <NavLink to ='/'>
           <h1>Votester</h1>
         </NavLink>
         <Bars />
@@ -15,14 +15,18 @@ const Navbar = () => {
           </NavLink>  
           <NavLink to = "/createVote" activeStyle>
             Hold a Vote!
-          </NavLink>  
-        </NavMenu>
-        <NavBtn>
+          </NavLink>
+          <NavLink to = "/findVote" activeStyle>
+            Find Vote
+          </NavLink>    
           <NavBtnLink to="/signin">Sign In</NavBtnLink>
-        </NavBtn>
+        </NavMenu>
+        {/* <NavBtn>
+          <NavBtnLink to="../signin">Sign In</NavBtnLink>
+        </NavBtn> */}
       </Nav>
     </>
-  )
-}
+  );
+};
 
 export default Navbar;
