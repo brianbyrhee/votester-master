@@ -14,10 +14,10 @@ const About = () => {
       <p>
         v 1.0.0
       </p>
-      <pre>
-        <br />Votester was created with the aim to deliver the voting experience to be simple, 
+      <p>
+        Votester was created with the aim to deliver the voting experience to be simple, 
         quick and easy to use. Updates to the website will be done regularly. Enjoy!
-      </pre>
+      </p>
     </div>
   )
 }
