@@ -48,13 +48,12 @@ function Form(props) {
             onChange = {handleChange}
             ref = {inputRef} 
           />
-          <button className = "add-vote"> Add vote</button>
+          <button className = "add-vote"> Add option</button>
         </>
         )
       }
-      
     </form>
   )
 }
 
-export default Form
+export default Form;

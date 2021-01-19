@@ -1,21 +1,10 @@
 import React, {useState} from 'react';
 import Form from './Form';
 import Todo from './Todo';
-import { makeStyles } from '@material-ui/core/styles';
+import axios from 'axios';
 
 function VoteGrid() {
   const [todos, setTodos] = useState([]);
-
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      flexGrow: 3,
-    },
-    paper: {
-      padding: theme.spacing(2),
-      textAlign: 'center',
-      color: 'gray',
-    },
-  }));
 
   const addTodo = todo => {
     if (!todo.text || /^\s*$/.test(todo.text)) {
@@ -52,16 +41,25 @@ function VoteGrid() {
     setTodos(updatedTodos);
   };
 
+const onSubmit = e => {
+    console.log(...todos, setTodos)
+
+    const user = "brian"
+    axios.post('http://localhost:5000/options/add', user)
+    .then(res => console.log(res.data));
+  }
+
   return (
     <>
-      <h1>What's the Plan for Today?</h1>
-      <Form onSubmit={addTodo} />
+      <h1>Type what you want to vote for!</h1>
       <Todo
         todos={todos}
         completeTodo={completeTodo}
         removeTodo={removeTodo}
         updateTodo={updateTodo}
       />
+      <Form onSubmit={addTodo} />
+      <button onClick = {onSubmit}>Create Poll</button>
     </>
   );
 }

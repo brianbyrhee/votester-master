@@ -1,29 +1,34 @@
 const router = require('express').Router();
-const Vote = require('../models/voters.model');
 const mongoose = require('mongoose');
 const Options = require('../models/options.model');
+const Database = require('../models/database.model');
+
+//pollid
+const id = "asnxajsnei219";
 
 router.route('/').get((req, res) => {
-  Vote.find()
+  Database.find({'pollid': id}, {voters: 1})
     .then(voters => res.json(voters))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
 router.route('/add').post((req, res) => {
-  const username = req.body.name;
-  const option = req.body.option;
-  const newVote = {name: username, date: Date.now()}
+  const name = req.body.name;
+  const vote = req.body.vote;
+  const newVote = {user: name, vote: vote}
 
-  Vote.findOneAndUpdate(
-    {'option': option},
-    {$push: {"votes": newVote}},
-    {$inc: {"counter": 1}},
-    {new: true},
-    (err) => {
-      if (err) res.status(400).json('Error: ' + err);
-      return res.json('Vote added!')
-    }
+  Database.findOneAndUpdate(
+    {'pollid': id},
+    {$addToSet: {"voters": newVote}}
   )
-})
+  .catch(err => res.status(400).json('Error: ' + err));
+  
+  Database.findOneAndUpdate(
+    {'pollid': id, 'options.name': vote},
+    {$inc: {'options.$.counter': 1}}
+  )
+  .then(() => res.json('Vote added!'))
+  .catch(err => res.status(400).json('Error: ' + err));
+});
 
 module.exports = router;

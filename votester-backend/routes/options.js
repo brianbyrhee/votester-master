@@ -1,23 +1,27 @@
 const router = require('express').Router();
-const Option = require('../models/options.model');
-const Vote = require('../models/voters.model');
+const Database = require('../models/database.model');
+
+//pollid
+const id = "asnxajsnei219"; 
 
 router.route('/').get((req, res) => {
-  Option.find()
+  Database.find({'pollid': id}, {options: 1})
     .then(options => res.json(options))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+
+//figure out adding unique IDs
 router.route('/add').post((req, res) => {
-  const option_name = req.body.option;
-  const newOption = new Option({name: option_name});
-  const addOption = new Vote({option: option_name, counter: 0, votes: [{name: "", date: Date.now()}]});
+  const option = req.body.option;
+  const newOption = {name: option, counter: 0}
 
-  addOption.save()
-  newOption.save()
-    .then(() => res.json('Option Initialized!'))
-    .catch(err => res.status(400).json('Error: ' + err));
-
+  Database.findOneAndUpdate(
+    {'pollid': id},
+    {$push: {options: newOption}}
+  )
+  .then(() => res.json('Option added!'))
+  .catch(err => res.status(400).json('Error: ' + err));
 })
 
 module.exports = router;
