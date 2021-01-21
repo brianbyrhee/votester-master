@@ -1,6 +1,9 @@
 const router = require('express').Router();
 const Database = require('../models/database.model');
 
+const id = "asdj2n1"
+
+//get, delete, post, update(?)
 router.route('/').get((req, res) => {
   Database.find()
     .then(poll => res.json(poll))
@@ -12,11 +15,11 @@ router.route('/add').post((req, res) => {
   const pollid = req.body.pollid;
   const password = req.body.password;
   var nulloptions = {
-    name: id, 
+    name: pollid, 
     counter: 0
   };
   var nullvoters = {
-    user: id, 
+    user: pollid, 
     vote: "dummy", 
     date: Date.now()
   };
@@ -27,21 +30,16 @@ router.route('/add').post((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 })
 
-router.route('/:pollid').get((req, res) => {
-  Database.findById(req.params.pollid)
+//change find by _id to just find by pollid
+router.route('/:id').get((req, res) => {
+  Database.find({'pollid': id})
     .then(poll => res.json(poll))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
 router.route('/:id').delete((req, res) => {
-  Database.findByIdAndDelete(req.params.pollid)
+  Database.findOneAndDelete(id)
     .then(poll => res.json('Poll deleted.'))
-    .catch(err => res.status(400).json('Error: ' + err));
-});
-
-router.route('/update/:id').post((req, res) => {
-  Database.findById(req.params.id)
-    .then(poll => res.json(poll))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 

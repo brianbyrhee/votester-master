@@ -11,6 +11,7 @@ const Home = () => {
       }}
     >
       <h1>Home</h1>
+      <button to >Let's get started!</button>
     </div>
   )
 }

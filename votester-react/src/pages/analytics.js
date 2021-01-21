@@ -1,10 +1,17 @@
 import React, { useEffect } from 'react'
 import Bar from '../components/visualizeData/Bar';
 
-//redirec to analytics over here
+//redirect to analytics over here
 const analytics = () => {
   return (
-    <div>
+    <div 
+      style = {{
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        height: '90vh'
+      }}
+    >
       <Bar />
     </div>
   )

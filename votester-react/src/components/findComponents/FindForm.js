@@ -15,8 +15,12 @@ function FindForm(props) {
   }
 
   const handleSubmit = (e) => {
-    console.log()
-    this.setState({ [e.currentTarget.id]: e.currentTarget.value });
+    e.preventDefault();
+    props.onSubmit({
+      pollid: (Math.random()*1e16).toString(36),
+      password: input
+    });
+    setInput('');
   }
 
   return (

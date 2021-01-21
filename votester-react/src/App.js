@@ -8,6 +8,8 @@ import Home from './pages';
 import About from './pages/about';
 import createVote from './pages/createVote';
 import findVote from './pages/findVote';
+import analytics from './pages/analytics';
+import voter from './pages/Voter';
 
 class App extends Component {
   render() {
@@ -19,6 +21,7 @@ class App extends Component {
           <Route path="/about" exact component={About} />
           <Route path="/createVote" exact component={createVote} />
           <Route path="/findVote" exact component={findVote} />
+          <Route path = "/voter" exact component={voter} />
         </Switch>
       </Router>
       // <div className="App">

@@ -1,6 +1,30 @@
 const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
+
+const optionSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  counter: {
+    type: Number,
+    required: true
+  }
+  }
+);
+
+const voterSchema = new Schema({user: {
+  type: String, 
+  required: false,
+  unique: true
+}, 
+vote: {
+  type: String,
+  required: true
+}
+}, {_id: false});
 const dataSchema = new Schema({
   //user/creator, userid, password, options, vote array per option (array of struct: name, time, email) 
   pollname: {
@@ -16,33 +40,8 @@ const dataSchema = new Schema({
     type: String,
     required: true
   },
-  options: [{
-    name: {
-      type: String,
-      required: true,
-      unique: true
-    },
-    counter: {
-      type: Number,
-      required: true
-    }
-  }],
-  voters: [{
-    user: {
-      type: String, 
-      required: false,
-      unique: true
-    }, 
-    vote: {
-      type: String,
-      required: true
-    },
-    date: {
-      type: Date, 
-      required: false,
-      default: Date.now
-    }
-  }]
+  options: [optionSchema],
+  voters: [voterSchema]
   }, {
   timestamps: true
 })

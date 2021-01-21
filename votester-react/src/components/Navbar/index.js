@@ -19,7 +19,7 @@ const Navbar = () => {
           <NavLink to = "/findVote" activeStyle>
             Find Vote
           </NavLink>    
-          <NavBtnLink to="/signin">Sign In</NavBtnLink>
+          <NavBtnLink to="/voter">Sign In</NavBtnLink>
         </NavMenu>
         {/* <NavBtn>
           <NavBtnLink to="../signin">Sign In</NavBtnLink>

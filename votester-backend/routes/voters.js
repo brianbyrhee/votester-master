@@ -4,8 +4,9 @@ const Options = require('../models/options.model');
 const Database = require('../models/database.model');
 
 //pollid
-const id = "asnxajsnei219";
+const id = "asdj2n1";
 
+//get, add, update, delete(?)
 router.route('/').get((req, res) => {
   Database.find({'pollid': id}, {voters: 1})
     .then(voters => res.json(voters))
@@ -30,5 +31,25 @@ router.route('/add').post((req, res) => {
   .then(() => res.json('Vote added!'))
   .catch(err => res.status(400).json('Error: ' + err));
 });
+
+router.route('/:id').get((req, res) => {
+  Database.find({'pollid': id}, {voters: 1})
+    .then(voters => res.json(voters))
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
+router.route('/update/:id').post((req, res) => {
+  Database.find({'pollid': id}, {voters: 1})
+    .then(voters => {
+      voters.user = req.body.name;
+      voters.vote = req.body.vote;
+      
+      voters.save()
+        .then(() => res.json('Voter mutated!'))
+        .catch(err => res.status(400).json('Error: ' + err));
+    })
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
 
 module.exports = router;

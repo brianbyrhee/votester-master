@@ -2,8 +2,9 @@ const router = require('express').Router();
 const Database = require('../models/database.model');
 
 //pollid
-const id = "asnxajsnei219"; 
+const id = "asdj2n1"; 
 
+//get, add, update(?), delete(?) --> depends on how frontend is set up
 router.route('/').get((req, res) => {
   Database.find({'pollid': id}, {options: 1})
     .then(options => res.json(options))
@@ -18,10 +19,16 @@ router.route('/add').post((req, res) => {
 
   Database.findOneAndUpdate(
     {'pollid': id},
-    {$push: {options: newOption}}
+    {$addToSet: {options: newOption}}
   )
   .then(() => res.json('Option added!'))
   .catch(err => res.status(400).json('Error: ' + err));
 })
+
+router.route('/:id').get((req, res) => {
+  Database.find({'pollid': id}, {options: 1})
+    .then(voters => res.json(voters))
+    .catch(err => res.status(400).json('Error: ' + err));
+});
 
 module.exports = router;
