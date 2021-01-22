@@ -17,6 +17,9 @@ const findVote = () => {
     To find a vote, type in the vote ID, or use the vote ID provided by the host! 
     Providing {"\n"}a password will direct you to the host page, where you can observe the 
     poll results. No {"\n"}password will redirect you to the voting page. 
+
+    {/* //with poll_id here, send request to server and get data from DB and redirect to voter page*/}
+    {/* If p/w is not empty, redirect to data admin page */}
     <FindForm />
     </Text>
     </div>

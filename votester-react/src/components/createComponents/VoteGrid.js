@@ -4,10 +4,9 @@ import Todo from './Todo';
 import axios from 'axios';
 import Button from "@material-ui/core/Button";
 
-function VoteGrid() {
+function VoteGrid(props) {
+  const poll_id = props.poll_id
   const [todos, setTodos] = useState([]);
-  var created = false;
-  var pollid = null;
 
   const addTodo = todo => {
     if (!todo.text || /^\s*$/.test(todo.text)) {
@@ -45,12 +44,10 @@ function VoteGrid() {
   };
 
 const onSubmit = e => {
+    //with todos and poll_id, send request to add to DB
     console.log(...todos)
-    created = true;
-    if (created) {
-      pollid = (Math.random()*1e16).toString(36);
-    }
-    console.log(pollid, created)
+
+    console.log(poll_id)
     const user = "brian"
     axios.post('http://localhost:5000/options/add', user)
     .then(res => console.log(res.data));
@@ -58,7 +55,7 @@ const onSubmit = e => {
 
   return (
     <>
-      <h2>Type what you want to vote for!</h2>
+      {/* <h4>Type what you want to vote for!</h4> */}
       {/* pollname, poll password */}
       <Todo
         todos={todos}
@@ -69,8 +66,7 @@ const onSubmit = e => {
       />
       {"\n"}
       {/* <Form onSubmit={addTodo} /> */}
-      <Button variant = "outlined" onClick = {onSubmit}>Create Poll</Button>
-      {created ? <h4>Poll has been created. The poll ID is {pollid}</h4> : ""}
+      <Button variant = "outlined" onClick = {onSubmit}>Set Options</Button>
     </>
   );
 }

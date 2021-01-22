@@ -2,6 +2,14 @@ import React from 'react'
 import { Nav, NavLink, NavMenu, Bars, NavBtnLink, NavBtn } from './NavbarElements';
 
 const Navbar = () => {
+  var state = {
+    id: (Math.random()*1e16).toString(36)
+  }
+  const generateid = () => {
+    state.id = (Math.random()*1e16).toString(36)
+    console.log(state.id)
+  }
+
   return (
     <>
       <Nav>
@@ -13,7 +21,7 @@ const Navbar = () => {
           <NavLink to = "/about" activeStyle>
             About Votester
           </NavLink>  
-          <NavLink to = "/createVote" activeStyle>
+          <NavLink to = {"/createVote/" + state.id} onClick = {generateid} activeStyle>
             Hold a Vote!
           </NavLink>
           <NavLink to = "/findVote" activeStyle>

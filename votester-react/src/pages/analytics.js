@@ -11,7 +11,7 @@ const analytics = () => {
         alignItems: 'center', 
         height: '90vh'
       }}
-    >
+    > 
       <Bar />
     </div>
   )
