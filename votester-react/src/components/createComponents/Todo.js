@@ -5,6 +5,9 @@ import {TiEdit} from 'react-icons/ti';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import Button from "@material-ui/core/Button";
+import Box from '@material-ui/core/Box';
+import {Text} from 'react-native';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Todo = ({ todos, completeTodo, removeTodo, updateTodo }) => {
+const Todo = ({ todos, completeTodo, removeTodo, updateTodo, addTodo }) => {
   const classes = useStyles();
   const [edit, setEdit] = useState({
     id: null,
@@ -33,7 +36,15 @@ const Todo = ({ todos, completeTodo, removeTodo, updateTodo }) => {
   };
 
   if (edit.id) {
-    return <Form edit={edit} onSubmit={submitUpdate} />;
+    return (
+        <Grid container justify = 'center'>
+          <Grid item xs = {6}>
+            <Paper className={classes.paper}>
+              <Form edit={edit} onSubmit={submitUpdate} />
+            </Paper>
+          </Grid>
+        </Grid>
+    );
   }
 
   return (
@@ -45,8 +56,8 @@ const Todo = ({ todos, completeTodo, removeTodo, updateTodo }) => {
       alignItems = "stretch"
       >
         {
-        todos.map((todo, index) => (
-          <Grid item xs={1} sm>
+        todos.slice(0).reverse().map((todo, index) => (
+          <Grid item xs>
             <Paper className={classes.paper}>
               <div
                 className={todo.isComplete ? 'todo-row complete' : 'todo-row'}
@@ -70,12 +81,14 @@ const Todo = ({ todos, completeTodo, removeTodo, updateTodo }) => {
           </Grid>
         ))
         }
-        <Grid item xs={1} sm>
+        <Grid item xs={6}>
           <Paper className={classes.paper}>
-            Add vote!
+            <Form onSubmit={addTodo} />
           </Paper>
         </Grid>
       </Grid>
+      <Text>{"\n"}{"\n"}</Text>
+      
     </div>
   )
 };

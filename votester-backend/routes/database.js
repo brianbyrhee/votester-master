@@ -43,5 +43,19 @@ router.route('/:id').delete((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.route('/update/:id').post((req, res) => {
+  Database.find({'pollid': id})
+    .then(poll => {
+      poll.pollname = req.body.pollname
+      poll.pollid = req.body.pollid
+      poll.password = req.body.pollid
+
+      poll.save()
+        .then(() => res.json('Poll updated!'))
+        .catch(err => res.status(400).json('Error: ' + err));
+    })
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
 
 module.exports = router;

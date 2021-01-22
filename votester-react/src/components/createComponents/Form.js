@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react';
+import Button from "@material-ui/core/Button";
+import './Form.css'
 
 function Form(props) {
   const [input, setInput] = useState(props.edit ? props.edit.value : '');
@@ -35,7 +37,7 @@ function Form(props) {
             onChange = {handleChange}
             ref = {inputRef} 
           />
-          <button className = "add-vote edit">Update</button>
+          <Button className = "add-vote edit">Update</Button>
         </>
         ) : 
         (<>
@@ -48,7 +50,7 @@ function Form(props) {
             onChange = {handleChange}
             ref = {inputRef} 
           />
-          <button className = "add-vote"> Add option</button>
+          <Button className = "add-vote"> Add option</Button>
         </>
         )
       }

@@ -1,54 +1,92 @@
 import React, { Component, useState } from "react";
-// import "./styles.css";
-// import CustomInput from "./components/CustomInput";
-// import Button from "./components/Button";
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
 function FindForm(props) {
   const [input, setInput] = useState('');
-  var state = {
-    pollid: "",
-    password: ""
-  };
+  const classes = useStyles();
 
-  const handleChange = e => {
-    setInput(e.target.value);
+  const pollidChange = (e) => {
+    //console.log(e.target.value)
+    setInput({pollid: e.target.value, password: input.password});
+    //console.log(input.pollid)
+  }
+  const passwordChange = (e) => {
+    setInput({pollid: input.pollid, password: e.target.value});
+    //console.log(input)
   }
 
-  const handleSubmit = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    props.onSubmit({
-      pollid: (Math.random()*1e16).toString(36),
-      password: input
-    });
-    setInput('');
+    console.log("Pollid: " + input.pollid);
+    console.log("Password: " + input.password);
+    console.log(input)
   }
 
   return (
     <div>
-      <form className= "find-vote" onSubmit = {handleSubmit}>
-        <input
-          labelText="Email"
-          id="email"
-          formControlProps={{
-            fullWidth: true
-          }}
-          handleChange={handleChange}
-          type="text"
-        />
-        <input
-          labelText="Password"
-          id="password"
-          formControlProps={{
-            fullWidth: true
-          }}
-          handleChange={handleChange}
-          type="password"
-        />
-
-        <button type="button" color="primary" className="find-vote-button">
-          Find Poll
-        </button>
-      </form>
+      <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className={classes.paper}>
+        <form className={classes.form} noValidate>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="pollid"
+            label="Poll ID"
+            type="pollid"
+            id="pollid"
+            autoComplete="pollid"
+            autoFocus
+            defaultValue={input.pollid} 
+            onChange={pollidChange}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            defaultValue={input.password} 
+            onChange={passwordChange}
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            onClick = {handleLogin}
+          >
+            Find Poll
+          </Button>
+        </form>
+      </div>
+    </Container>
     </div>
   )
 }

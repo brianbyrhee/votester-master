@@ -2,13 +2,17 @@ import React, {useState, useRef, useEffect} from 'react'
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
+import { IoEnter } from 'react-icons/io5';
 import SelectInput from '@material-ui/core/Select/SelectInput';
+import Text from 'react-native';
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 3,
   },
   paper: {
+    height: "100%",
     padding: theme.spacing(2),
     textAlign: 'center',
     color: 'gray',
@@ -56,45 +60,54 @@ const VoteGrid = () => {
 
   return (
     <div>
-    <div className={classes.root} class = "voteGrid">
-      <form className = "name-form" onSubmit = {submitForm}>
-        <input
-          type="text"
-          placeholder="Name"
-          value = {vote.name}
-          name = "text"
-          className = "name-input edit"
-          onChange = {handleChange}
-          ref = {inputRef}
-        />
-        <button className = "submit name">Submit</button>
-      </form>
-    <Grid 
-    id = "cards"
-    container spacing={4} 
-    justify = "space-evenly"
-    alignItems = "stretch"
-    >
-    {
-      todos.map((todo, index) => (
-        <Grid item xs={4} >
-          <Paper className={classes.paper}>
-            <div
-              className={todo.isComplete ? 'todo-row complete' : 'todo-row'}
-              key={index}
-            >
-              <button onClick = {() => submitVote(todo)}> { todo }</button>
-            </div>
-          </Paper>
+      <div className={classes.root} class = "voteGrid">
+        <form className = "name-form" onSubmit = {submitForm}>
+          <input
+            type="text"
+            placeholder="Name"
+            value = {vote.name}
+            name = "text"
+            className = "name-input edit"
+            onChange = {handleChange}
+            ref = {inputRef}
+          />
+          <Button className = "submit-name">Submit</Button>
+        </form>
+        <Grid 
+        id = "cards"
+        container spacing={4} 
+        justify = "space-evenly"
+        alignItems = "stretch"
+        >
+        {
+          todos.map((todo, index) => (
+            <Grid item xs={4} >
+              <Paper className={classes.paper}>
+                <div
+                  className={todo.isComplete ? 'todo-row complete' : 'todo-row'}
+                  key={index}
+                >
+                  <Button className = "select-vote" onClick = {() => submitVote(todo)}> { todo }</Button>
+                </div>
+              </Paper>
+            </Grid>
+          ))
+        }   
         </Grid>
-      ))
-    }   
-    </Grid>
-  </div>
-  <h2>{vote.name}'s vote is: {vote.user_vote}</h2>
-  <button onClick = {console.log("ksdnjkwqnj1: ", vote)}> Submit vote </button>
-  </div>
-  )
+      </div>
+      <h2>{vote.name}'s vote is: {vote.user_vote}</h2>
+      <Button 
+        className = "submit-vote" 
+        onClick = {console.log("ksdnjkwqnj1: ", vote)}> 
+          Submit vote 
+          <div className = 'icons'>
+            <IoEnter
+              className = 'submit-icon'
+            />
+          </div>
+      </Button>
+    </div>
+    )
 }
 
 export default VoteGrid;
