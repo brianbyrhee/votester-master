@@ -22,12 +22,6 @@ const useStyles = makeStyles((theme) => ({
 const VoteGrid = () => {
   const classes = useStyles();
 
-  const inputRef = useRef(null);
-  useEffect(() => {
-    inputRef.current.focus()
-  })
-
-
   //retrieve the options in some array using axios
   const todos = ["obama", "trump"];
 
@@ -45,34 +39,9 @@ const VoteGrid = () => {
     console.log(vote);
   }
 
-  const submitForm = (e) => {
-    e.preventDefault();
-    console.log(vote)
-  }
-
-  const handleChange = e => {
-    e.persist();
-    setVote((vote) => ({
-      ...vote,
-      name: e.target.value
-    }));
-  };
-
   return (
     <div>
       <div className={classes.root} class = "voteGrid">
-        <form className = "name-form" onSubmit = {submitForm}>
-          <input
-            type="text"
-            placeholder="Name"
-            value = {vote.name}
-            name = "text"
-            className = "name-input edit"
-            onChange = {handleChange}
-            ref = {inputRef}
-          />
-          <Button className = "submit-name">Submit</Button>
-        </form>
         <Grid 
         id = "cards"
         container spacing={4} 
