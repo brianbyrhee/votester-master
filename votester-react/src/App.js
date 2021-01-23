@@ -21,7 +21,7 @@ class App extends Component {
           <Route path="/about" exact component={About} />
           <Route path="/createVote/:poll_id" exact component={createVote} />
           <Route path="/findVote" exact component={findVote} />
-          <Route path = "/voter/:poll_id/:user_id" exact component={voter} />
+          <Route path = "/voter/:poll_id" exact component={voter} />
           <Route path="/analytics/:poll_id" exact component={analytics} />
         </Switch>
       </Router>

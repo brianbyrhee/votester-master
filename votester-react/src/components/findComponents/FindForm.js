@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
+import { Redirect } from 'react-router';
 
 const styles = (theme) => ({
   paper: {
@@ -29,7 +30,7 @@ class FindForm extends Component {
   state = {
     poll_id: "",
     password: "",
-    password_state: false
+    router: null,
   }
 
   componentDidMount() {
@@ -63,16 +64,18 @@ class FindForm extends Component {
           console.log("poll exists!")
           if (!this.state.password) {
             //no password, redirect
+            this.setState({router: "voter"});
             console.log("send to voter page");
           } else if (this.state.password === this.state.data[0].password) {
             //correct password, redirect
             console.log("send to admin page");
             //for good practice, don't forget to reset state
+            this.setState({router: "admin"});
           }
           else {
             //incorrect password
             console.log("wrong password");
-            this.setState({password_state: true});
+            this.setState({router: "stay"});
           }
           console.log(this.state)
         }
@@ -81,6 +84,11 @@ class FindForm extends Component {
   }
 
   render() {
+    if (this.state.router === "admin") {
+      return <Redirect push to = {"/analytics/" + this.state.poll_id} />;
+    } else if (this.state.router === "voter") {
+      return <Redirect push to = {"/voter/" + this.state.poll_id} />;
+    }
     const {classes} = this.props;
     return (
       <div>
@@ -113,22 +121,22 @@ class FindForm extends Component {
               defaultValue={this.state.password} 
               onChange={this.passwordChange}
             />
-            <Link to = {"/analytics/" + this.state.poll_id} style={{ textDecoration: 'none' }}>
+            {/* <Link to = {"/analytics/" + this.state.poll_id} style={{ textDecoration: 'none' }}> */}
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
                 className={classes.submit}
-                //onClick = {this.handleSubmit}
+                onClick = {this.handleSubmit}
               >
                 Find Poll
               </Button>
-            </Link>
+            {/* </Link> */}
           </form>
         </div>
       </Container>
-      <h6>{this.state.password_state ? "incorrect password" : ""}</h6>
+      <h6>{this.state.router === "stay" ? "incorrect password" : ""}</h6>
       </div>
     )
   }

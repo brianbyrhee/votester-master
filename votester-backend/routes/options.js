@@ -2,7 +2,7 @@ const router = require('express').Router();
 const Database = require('../models/database.model');
 
 //pollid
-const id = "asdj2n1"; 
+const id = "2b5c1ya9wyy"; 
 
 //get, add, update(?), delete(?) --> depends on how frontend is set up
 router.route('/').get((req, res) => {
@@ -19,7 +19,7 @@ router.route('/add').post((req, res) => {
 
   Database.findOneAndUpdate(
     {'pollid': id},
-    {$addToSet: {options: newOption}}
+    {$push: {options: newOption}}
   )
   .then(() => res.json('Option added!'))
   .catch(err => res.status(400).json('Error: ' + err));
