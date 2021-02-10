@@ -10,12 +10,21 @@ import createVote from './pages/createVote';
 import findVote from './pages/findVote';
 import analytics from './pages/analytics';
 import voter from './pages/Voter';
+import Sidebar from './components/Sidebar';
 
 class App extends Component {
+  state = {
+    isOpen: false,
+  }
+  toggle = () => {
+    this.setState({isOpen: !this.state.isOpen})
+  }
+
   render() {
     return (
       <Router>
-        <Navbar />
+        <Sidebar isOpen={this.state.isOpen} toggle={this.toggle}/>
+        <Navbar toggle={this.toggle}/>
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/about" exact component={About} />
@@ -25,31 +34,6 @@ class App extends Component {
           <Route path="/analytics/:poll_id" exact component={analytics} />
         </Switch>
       </Router>
-      // <div className="App">
-      //   <h1> Votester: Simple Voting App </h1>
-      //   <button>Add option</button>
-      //   <Option name = "Trump" id = "1"/>
-      //   <Option name = "Biden" id = "2"/>
-      //   <ParentComponent addChild={this.onAddChild}>
-      //     {children}
-      //   </ParentComponent>
-      //   <div class = "form">
-      //     <input type = "text" name = "name" autoComplete = "off" required /> 
-      //     <label for = "name" class = "label-name">
-      //       <span class = "content-name"> Name </span>
-      //     </label>
-      //   </div>
-
-      //   {/* <script src="https://jsuites.net/v3/jsuites.js"></script>
-      //   <link rel="stylesheet" href="https://jsuites.net/v3/jsuites.css" type="text/css" />
-        
-      //   <input id='calendar' />
-        
-      //   <script>
-      //   jSuites.calendar(document.getElementById('calendar'), {time: true, format:'DD/MM/YYYY HH24:MI'});
-      //   </script> */}
-      // </div>
-      
     );
   }
 

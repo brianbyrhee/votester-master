@@ -1,7 +1,7 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Nav, NavLink, NavMenu, Bars, NavBtnLink, NavBtn } from './NavbarElements';
 
-const Navbar = () => {
+const Navbar = ({toggle}) => {
   var state = {
     id: (Math.random()*1e16).toString(36)
   }
@@ -16,7 +16,7 @@ const Navbar = () => {
         <NavLink to ='/'>
           <h1>Votester</h1>
         </NavLink>
-        <Bars />
+        <Bars onClick={toggle}/>
         <NavMenu>
           <NavLink to = "/about" activeStyle>
             About Votester

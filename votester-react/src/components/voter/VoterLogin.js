@@ -27,16 +27,15 @@ const styles = (theme) => ({
 
 class VoterLogin extends Component {
   state = {
-    poll_name: "",
-    poll_id: this.props.poll_id,
+    user_name: "",
   }
 
   componentDidMount() {
   }
 
-  pollnameChange = (e) => {
+  voterChange = (e) => {
     //console.log(e.target.value)
-    this.setState({poll_name: e.target.value, password: this.state.password});
+    this.setState({user_name: e.target.value});
   }
 
   handleSubmit = (e) => {
@@ -45,16 +44,27 @@ class VoterLogin extends Component {
 
   async _handleSubmit(e) {
     e.preventDefault();
-    console.log("Poll Name: " + this.state.poll_name);
-    this.props.set_poll_name(this.state.poll_name);
-    console.log(this.state.poll_id)
-    var poll = {
-      poll_name: this.state.poll_name,
-      poll_id: this.state.poll_id
-    }
-    console.log(poll)
+    console.log("Name: " + this.state.user_name);
+    this.props.set_poll_name(this.state.user_name);
 
-    axios.post('http://localhost:5000/database/add', poll)
+    axios.get('http://localhost:5000/voters/' + this.state.poll_id)
+      .then((response) =>  {
+        const voter = response.data;
+        this.setState({voter_data: voter})
+        if (voter === undefined || voter.length === 0) {
+          console.log("voter does not exist!")
+          //pass in state here
+          this.props.changVoteState(false)
+        }
+        else {
+          console.log("voter does exist, and has already voted")
+          //pass in state here
+          this.props.changeVoteState(true)
+        }
+      })
+
+
+    axios.post('http://localhost:5000/database/add', this.state)
       .then(res => console.log(res.data))
       .catch(err => console.log(err))
   }
@@ -72,14 +82,14 @@ class VoterLogin extends Component {
               margin="normal"
               required
               fullWidth
-              name="pollname"
-              label="Poll Name"
-              type="pollname"
-              id="pollname"
-              autoComplete="pollname"
+              name="name"
+              label="Name"
+              type="name"
+              id="name"
+              autoComplete="name"
               autoFocus
-              defaultValue={this.state.poll_name} 
-              onChange={this.pollnameChange}
+              defaultValue={this.state.user_name} 
+              onChange={this.voterChange}
             />
             <Button
               type="submit"
@@ -89,8 +99,7 @@ class VoterLogin extends Component {
               className={classes.submit}
               onClick = {this.handleSubmit}
             >
-              Confirm Info
-              {this.state.poll_id} 
+              Submit Name
             </Button>
           </form>
         </div>

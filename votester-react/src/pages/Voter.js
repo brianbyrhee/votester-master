@@ -10,6 +10,10 @@ import axios from 'axios';
 //Note that you dont need routing parameters for voters here, as we're not really retrieving data; 
 // all we need to do is record the voter user and post it when submitting vote
 
+//we need to get name from VoterLogin, and then check if name exists in the DB
+//note that if the name doesn't exist in the DB, then we need to post the name
+// ^^ this task must be done in VoterLogin, and handle it using helper functions
+
 const styles = (theme) => ({
   root: {
     flexGrow: 1,
@@ -24,11 +28,19 @@ const styles = (theme) => ({
 class Voter extends Component {
   // you need 3 states; not logged in, voted and not voted
   state = {
-    voted: false
+    voter_status: "not logged in"
   }
 
-  _changeVoteState = () => {
-    this.setState({voted: true});
+  _changeVoteState = (voter_state) => {
+    if (voter_state) {
+      console.log("voter voted here")
+      this.setState({voter_status: "voted"});
+    }
+    else {
+      console.log("voter has not voted yet")
+      this.setState({voter_status: "not voted"})
+    }
+    
   }
 
   render() {
@@ -48,16 +60,17 @@ class Voter extends Component {
             <Grid item xs={4}>
               <Paper className={classes.paper}>
                 <h4>Log In</h4>
-                <VoterLogin votedState = {this.state.voted} />  
+                <VoterLogin votedState = {this.state.voter_status} changeVoteState = {this._changeVoteState}/>  
               </Paper>
             </Grid>
           
             <Grid item xs={6}>
               <Paper className={classes.paper}>
-                <VoteGrid votedState = {this.state.voted}/>
+                <VoteGrid votedState = {this.state.voter_status}/>
               </Paper>
             </Grid>
           </Grid>
+          <h4>Vote state is {this.state.voter_status}</h4>
         </div>
       </div>
     )

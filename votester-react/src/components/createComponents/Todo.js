@@ -38,7 +38,7 @@ const Todo = ({ todos, completeTodo, removeTodo, updateTodo, addTodo }) => {
   if (edit.id) {
     return (
         <Grid container justify = 'center'>
-          <Grid item xs = {6}>
+          <Grid item xs = {6} zeroMinWidth>
             <Paper className={classes.paper}>
               <Form edit={edit} onSubmit={submitUpdate} />
             </Paper>
