@@ -2,7 +2,6 @@ import React, {useState, useRef, useEffect, Component} from 'react'
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { IoEnter } from 'react-icons/io5';
 import SelectInput from '@material-ui/core/Select/SelectInput';
 import Text from 'react-native';
 import Button from "@material-ui/core/Button";
@@ -41,6 +40,7 @@ class VoteGrid extends Component {
     const { classes } = this.props;
     return (
       <div>
+        <h4>Select Vote Here!</h4>
         <div className={classes.root} class = "voteGrid">
           <Grid 
           id = "cards"
@@ -68,11 +68,6 @@ class VoteGrid extends Component {
           className = "submit-vote" 
           onClick = {console.log("ksdnjkwqnj1: ", this.state.vote)}> 
             Submit vote 
-            <div className = 'icons'>
-              <IoEnter
-                className = 'submit-icon'
-              />
-            </div>
         </Button>
       </div>
       )
